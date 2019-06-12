@@ -19,7 +19,11 @@ This took about six *months* to do, however since PowerBee doesn't repeat itself
 
 
 Dependencies:
+
 Python 3
+
 praw
+
 pywebcopy
+
 pyyaml (Should be in most distributions)
