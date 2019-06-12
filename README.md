@@ -16,7 +16,7 @@ This process may take a while, depending on reddit's server load.
 
 Next, you can run the "RedditCommentExtractor003.py" script. This script iterates through all your saved subreddits, searching for saved submissions. It will then download up to 1750 of the "best" comments per submission.
 Note that this can can take a very long time, if you follow a lot of subreddits, and they are very active. For example, I have downloaded  40,099 submissions, from 733 subreddits, totaling some 8,975,214 comments.
-This took about six *months* to do, however since PowerBee doesn't repeat itself on downlaods, subsequent scheduled runs are now relatively fast.
+This took about six *months* to do, however since PowerBee doesn't repeat itself on downloads, subsequent scheduled runs are now relatively fast.
 
 
 Dependencies:
