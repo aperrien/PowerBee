@@ -5,6 +5,7 @@ PowerBee is a reddit downloader, allowing you to save submissions, comments, and
 
 Usage:
 After unpacking and installing dependencies, you will need to create an clientID and client secret (OAuth2 tokens) for reddit. You can do that by following the directions given here:
+
 https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps
 
 After you have those, enter those values into your PowerBeeConfig.yaml file, replacing the placeholder values.
