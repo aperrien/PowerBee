@@ -1,0 +1,8 @@
+#
+# PowerBee Login configuration
+#
+client_id: 'Your ID Here'
+client_secret: 'Your Secret Here'
+user_agent: 'PowerBee subreddit comment export 0.3 '
+username: 'username'
+password: 'Password'
