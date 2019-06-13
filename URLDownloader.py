@@ -27,6 +27,14 @@ cursor.execute(statement)
 # Normalize the base path
 prefix = os.path.normpath('H:\Python\PowerBee\Hive\Data')
 
+# Create paths if not exists
+if not os.path.exists(prefix):
+    try:
+       os.makedirs(prefix)
+    except OSError:
+       pass
+
+
 count = 0
 while count <= 10:
     count += 1
