@@ -21,7 +21,10 @@ LIMIT 10;
 
 cursor.execute(statement)
 
-prefix = 'Hive/Data'
+# Folder paths for pywebcopy must be absolute paths.
+# RE: https://github.com/rajatomar788/pywebcopy/issues/13
+#
+prefix = r'H:\Python\PowerBee\Hive\Data'
 count = 0
 while count <= 10:
     count += 1
@@ -30,11 +33,11 @@ while count <= 10:
         break
     print(results)
     (SubredditID, SubmissionID, SubmissionTitle, URL) = results
-    kwargs = {'project_name': 'PowerBee'}
-    savePath = SubredditID + '/' + SubmissionID
+    kwargs = {'project_name': ''}
+
     save_webpage(
         url=URL,
-        project_folder=savePath,
+        project_folder=prefix + r'\\' + SubredditID + r'\\' + SubmissionID,
         **kwargs
     )
 
