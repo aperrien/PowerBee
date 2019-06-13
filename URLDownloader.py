@@ -1,3 +1,4 @@
+import os.path
 import sqlite3
 import datetime
 from pywebcopy import save_webpage
@@ -23,8 +24,9 @@ cursor.execute(statement)
 
 # Folder paths for pywebcopy must be absolute paths.
 # RE: https://github.com/rajatomar788/pywebcopy/issues/13
-#
-prefix = r'H:\Python\PowerBee\Hive\Data'
+# Normalize the base path
+prefix = os.path.normpath('H:\Python\PowerBee\Hive\Data')
+
 count = 0
 while count <= 10:
     count += 1
@@ -37,7 +39,8 @@ while count <= 10:
 
     save_webpage(
         url=URL,
-        project_folder=prefix + r'\\' + SubredditID + r'\\' + SubmissionID,
+        # Use builtin path module for path manipulation
+        project_folder=os.path.join(prefix, SubredditID, SubmissionID),
         **kwargs
     )
 
