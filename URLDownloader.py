@@ -37,6 +37,12 @@ cursor.execute(statement)
 
 prefix = downloaderConfig['download_root']
 count = 0
+
+# TODO: Locate index.html file from pywebcopy download
+# TODO: Add cases for other utilities to download, like youtube-dl, Newspaper3k, twitter-text-python
+# TODO: Add logins for spacific web sites, like imgur, nytimes, etc.
+
+
 while count <= 10:
     count += 1
     results = cursor.fetchone()
