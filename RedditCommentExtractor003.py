@@ -11,7 +11,7 @@ stream = open(r"PowerBeeConfig.yaml", 'r')
 try:
     config = yaml.safe_load(stream)
     redditConfig = config['reddit_config']
-    print(config)
+
 except yaml.YAMLError as exc:
     print(exc)
 reddit = praw.Reddit(**redditConfig)

@@ -9,7 +9,6 @@ stream = open(r"PowerBeeConfig.yaml", 'r')
 try:
     config = yaml.safe_load(stream)
     downloaderConfig = config['downloader_config']
-    print(config)
 except yaml.YAMLError as exc:
     print(exc)
 
@@ -35,7 +34,7 @@ cursor.execute(statement)
 # Folder paths for pywebcopy must be absolute paths.
 # RE: https://github.com/rajatomar788/pywebcopy/issues/13
 #
-prefix = r'H:\Python\PowerBee\Hive\Data'
+
 prefix = downloaderConfig['download_root']
 count = 0
 while count <= 10:
