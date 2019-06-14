@@ -3,16 +3,14 @@ import datetime
 import praw
 import yaml
 
-
-
-stream = open(r"H:\Python\PowerBeeConfig.yaml", 'r')
+stream = open(r"PowerBeeConfig.yaml",'r')
 try:
     config = yaml.safe_load(stream)
+    redditConfig = config['reddit_config']
     print(config)
 except yaml.YAMLError as exc:
     print(exc)
-reddit = praw.Reddit(**config)
-
+reddit = praw.Reddit(**redditConfig)
 
 connection = sqlite3.connect(r"RedditArchive.db")
 cursor = connection.cursor()

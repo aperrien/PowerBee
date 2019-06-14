@@ -1,8 +1,13 @@
 #
 # PowerBee Login configuration
 #
-client_id: 'Your ID Here'
-client_secret: 'Your Secret Here'
-user_agent: 'PowerBee subreddit comment export 0.3 '
-username: 'username'
-password: 'Password'
+reddit_config:
+  client_id: 'Your ID Here'
+  client_secret: 'Your Secret Here'
+  user_agent: 'PowerBee subreddit comment export 0.3 '
+  username: 'username'
+  password: 'Password'
+
+downloader_config:
+  download_root: 'H:\Python\PowerBee\Hive\Data'
+
