@@ -1,7 +1,5 @@
 --
--- Main Database for PowerBee
---
--- File generated with SQLiteStudio v3.2.1 on Tue Jun 11 18:03:36 2019
+-- File generated with SQLiteStudio v3.2.1 on Thu Jun 13 20:15:04 2019
 --
 -- Text encoding used: System
 --
@@ -39,7 +37,15 @@ CREATE TABLE comments (
     Permalink     TEXT,
     Score         INTEGER,
     Stickied      BOOLEAN,
-    SubredditID   VARCHAR (25) 
+    SubredditID   VARCHAR (25),
+    PRIMARY KEY (
+        CommentID ASC
+    )
+    ON CONFLICT REPLACE,
+    UNIQUE (
+        InternalID ASC
+    )
+    ON CONFLICT IGNORE
 );
 
 
