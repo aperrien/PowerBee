@@ -59,7 +59,8 @@ while count <= 10:
 
     save_webpage(
         url=URL,
-        project_folder=prefix + r'\\' + SubredditID + r'\\' + SubmissionID,
+        # Use builtin path module for path manipulation
+        project_folder=os.path.join(prefix, SubredditID, SubmissionID),
         **kwargs
     )
 
