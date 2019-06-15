@@ -2,6 +2,7 @@ import sqlite3
 import datetime
 from pywebcopy import save_webpage
 import yaml
+import os.path
 
 # pywebcopy docs found at: https://github.com/rajatomar788/pywebcopy
 
@@ -26,16 +27,20 @@ SELECT d.SubredditID,
        s.URL
   FROM Downloads d
   INNER JOIN submissions s ON (d.SubredditID = s.SubredditID) and (d.SubmissionID = s.SubmissionID)
-LIMIT 10;
+  WHERE s.URL is not NULL 
+  ORDER BY RANDOM()
+LIMIT 20;
 """
 
 cursor.execute(statement)
 
 # Folder paths for pywebcopy must be absolute paths.
 # RE: https://github.com/rajatomar788/pywebcopy/issues/13
+# Incorporated rajatomar788's fix, 15 Jun 2019, thanks!
 #
 
-prefix = downloaderConfig['download_root']
+prefix = os.path.normpath(downloaderConfig['download_root'])
+
 count = 0
 
 # TODO: Locate index.html file from pywebcopy download
