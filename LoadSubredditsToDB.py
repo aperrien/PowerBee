@@ -3,7 +3,7 @@ import datetime
 import praw
 import yaml
 
-stream = open(r"PowerBeeConfig.yaml",'r')
+stream = open(r"H:\Python\PowerBeeConfig.yml",'r')
 try:
     config = yaml.safe_load(stream)
     redditConfig = config['reddit_config']
@@ -20,7 +20,7 @@ print("Start Time->" + str(datetime.datetime.now()))
 
 
 subgen = reddit.user.subreddits(limit=None)
-
+subcount = 1
 for sub in subgen:
     cutc = str(datetime.datetime.fromtimestamp(sub.created_utc))
 
@@ -32,10 +32,13 @@ for sub in subgen:
                      sub.description, sub.description_html, sub.public_description, str(sub.rules()), '0', '0'
                      )
                    )
-    
-    connection.commit()
+    print('Inserted #' + str(subcount) + ' ' + sub.display_name)
+    subcount += 1
 
     
+
+
+connection.commit()
 print("Stop Time->" + str(datetime.datetime.now()))
 
 connection.close()
