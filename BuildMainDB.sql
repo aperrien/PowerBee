@@ -1,5 +1,5 @@
 --
--- File generated with SQLiteStudio v3.2.1 on Thu Jun 13 20:15:04 2019
+-- File generated with SQLiteStudio v3.2.1 on Sun Jun 16 21:50:55 2019
 --
 -- Text encoding used: System
 --
@@ -108,7 +108,11 @@ CREATE TABLE submissions (
     SubredditID     VARCHAR (25),
     SubmissionTitle TEXT,
     UpvoteRatio     NUMBER,
-    URL             TEXT
+    URL             TEXT,
+    PRIMARY KEY (
+        SubmissionID
+    )
+    ON CONFLICT IGNORE
 );
 
 
@@ -126,7 +130,11 @@ CREATE TABLE subreddits (
     Rules             TEXT,
     DownloadStatus    INTEGER,
     DownloadCount     INTEGER,
-    LastDownloadTime  DATETIME
+    LastDownloadTime  DATETIME,
+    PRIMARY KEY (
+        SubredditID
+    )
+    ON CONFLICT IGNORE
 );
 
 
@@ -135,6 +143,14 @@ DROP INDEX IF EXISTS SubmissionIDIndex;
 
 CREATE INDEX SubmissionIDIndex ON submissions (
     SubmissionID
+);
+
+
+-- Index: SubmissionSubredditIDIndex
+DROP INDEX IF EXISTS SubmissionSubredditIDIndex;
+
+CREATE INDEX SubmissionSubredditIDIndex ON submissions (
+    SubredditID
 );
 
 
