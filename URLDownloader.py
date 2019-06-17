@@ -9,11 +9,10 @@ import os.path
 stream = open(r"PowerBeeConfig.yaml", 'r')
 try:
     config = yaml.safe_load(stream)
-    downloaderConfig = config['downloader_config']
 except yaml.YAMLError as exc:
     print(exc)
 
-
+downloaderConfig = config['downloader_config']
 
 connection = sqlite3.connect(r"RedditArchive.db")
 cursor = connection.cursor()
