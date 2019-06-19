@@ -47,7 +47,7 @@ count = 0
 # TODO: Add logins for spacific web sites, like imgur, nytimes, etc.
 
 
-while count <= 10:
+while count <= 20:
     count += 1
     results = cursor.fetchone()
     if results == None:
