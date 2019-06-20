@@ -1,5 +1,7 @@
 import sqlite3
-import datetime
+
+# Initalize and build the database
+
 
 buildFile = open('BuildMainDB.sql')
 buildScript = buildFile.read()
