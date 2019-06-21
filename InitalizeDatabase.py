@@ -9,7 +9,8 @@ buildScript = buildFile.read()
 connection = sqlite3.connect(r"RedditArchive.db")
 cursor = connection.cursor()
 
-cursor.execute(buildScript)
+cursor.executescript(buildScript)
+cursor.execute("vacuum;")
 connection.commit()
 
 connection.close()
