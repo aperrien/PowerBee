@@ -9,7 +9,7 @@ After unpacking and installing dependencies, you will need to create an clientID
 https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps
 
 After you have those, enter those values into your PowerBeeConfig.yaml file, replacing the placeholder values.
-Initialize the main SQLite database by running the BuildMainDB.sql file. (There will be an automated process for this soon)
+Initialize the main SQLite database by running InitalizeDatabase.py
 
 Now you can begin dowloading from reddit. To start, run "LoadSubredditsToDB.py". This will load the database with all your subscribed subreddits.
 This process may take a while, depending on reddit's server load.
