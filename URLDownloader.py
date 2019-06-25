@@ -50,22 +50,21 @@ count = 0
 
 
 
-while count <= 0:
+while count <= 20:
     count += 1
-#    results = cursor.fetchone()
-#    if results == None:
-#        break
-#    print(results)
-#    (SubredditID, SubmissionID, SubmissionTitle, URL) = results
-    (SubredditID, SubmissionID, SubmissionTitle, URL) = ('t5_4mmx0', 'b2upvf', 'The Anarchist Library', 'http://theanarchistlibrary.org/special/index')
+    results = cursor.fetchone()
+    if results == None:
+        break
+    print(results)
+    (SubredditID, SubmissionID, SubmissionTitle, URL) = results
     save_folder = os.path.join(prefix, SubredditID, SubmissionID)
 
     config.setup_config(URL, save_folder, 'pb')
     wp = WebPage()
     wp.get(URL)
     wp.save_complete()
-    print('HTML folder:' + str(wp.save_html()))
-    print('Asset folder:' + str(wp.save_assets()))
+    print('HTML folder:' + str(wp.file_path))
+    print('Asset folder:' + str(wp.project_path))
 
 
 
