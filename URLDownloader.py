@@ -1,6 +1,7 @@
 import sqlite3
 import datetime
-from pywebcopy import save_webpage
+
+from pywebcopy import WebPage, config
 import yaml
 import os.path
 
@@ -8,11 +9,11 @@ import os.path
 
 stream = open(r"PowerBeeConfig.yaml", 'r')
 try:
-    config = yaml.safe_load(stream)
+    PBconfig = yaml.safe_load(stream)
 except yaml.YAMLError as exc:
     print(exc)
 
-downloaderConfig = config['downloader_config']
+downloaderConfig = PBconfig['downloader_config']
 
 connection = sqlite3.connect(r"RedditArchive.db")
 cursor = connection.cursor()
@@ -27,6 +28,7 @@ SELECT d.SubredditID,
   FROM Downloads d
   INNER JOIN submissions s ON (d.SubredditID = s.SubredditID) and (d.SubmissionID = s.SubmissionID)
   WHERE s.URL is not NULL 
+  AND s.URL not LIKE '%reddit%'
   ORDER BY RANDOM()
 LIMIT 20;
 """
@@ -47,19 +49,26 @@ count = 0
 # TODO: Add logins for spacific web sites, like imgur, nytimes, etc.
 
 
-while count <= 20:
-    count += 1
-    results = cursor.fetchone()
-    if results == None:
-        break
-    print(results)
-    (SubredditID, SubmissionID, SubmissionTitle, URL) = results
-    kwargs = {'project_name': ''}
 
-    save_webpage(
-        url=URL,
-        # Use builtin path module for path manipulation
-        project_folder=os.path.join(prefix, SubredditID, SubmissionID),
-        **kwargs
-    )
+while count <= 0:
+    count += 1
+#    results = cursor.fetchone()
+#    if results == None:
+#        break
+#    print(results)
+#    (SubredditID, SubmissionID, SubmissionTitle, URL) = results
+    (SubredditID, SubmissionID, SubmissionTitle, URL) = ('t5_4mmx0', 'b2upvf', 'The Anarchist Library', 'http://theanarchistlibrary.org/special/index')
+    save_folder = os.path.join(prefix, SubredditID, SubmissionID)
+
+    config.setup_config(URL, save_folder, 'pb')
+    wp = WebPage()
+    wp.get(URL)
+    wp.save_complete()
+    print('HTML folder:' + str(wp.save_html()))
+    print('Asset folder:' + str(wp.save_assets()))
+
+
+
+
+
 
