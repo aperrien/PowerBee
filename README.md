@@ -1,6 +1,6 @@
 # PowerBee
 PowerBee is a reddit downloader, allowing you to save submissions, comments, and content.
-*Theis is still alpha code!* but it is useful. 
+*This is still alpha code!* but it is useful. 
 
 
 Usage:
