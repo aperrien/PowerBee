@@ -61,6 +61,7 @@ CREATE TABLE Downloads (
     DownloadAttemptCount  INTEGER       DEFAULT (0),
     LinkControl           VARCHAR (250),
     ServerReply           TEXT,
+    LocalAbsoluteFilePath TEXT,
     PRIMARY KEY (
         SubredditID ASC,
         SubmissionID
