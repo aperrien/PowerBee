@@ -33,6 +33,8 @@ SELECT d.SubredditID,
   s.URL not LIKE '%reddit%'
   AND 
   s.URL not LIKE '%imgur%'
+  AND
+  s.URL not LIKE '%.youtube.com%'
 
   ORDER BY RANDOM()
 LIMIT 20;
@@ -107,6 +109,7 @@ for result in results:
     endDownloadTime = datetime.datetime.utcnow()
     print('HTML folder:' + str(wp.file_path))
 
+    cursor.execute(fetchDownloadStatusStatment, (SubredditID, SubmissionID))
     (LastDownloadAttempted,
      LastDownloadCompleted,
      DownloadStatus,
@@ -114,11 +117,12 @@ for result in results:
      LinkControl,
      ServerReply,
      LocalAbsoluteFilePath
-     ) = cursor.execute(fetchDownloadStatusStatment, (SubredditID, SubmissionID))
+     ) = cursor.fetchone()
 
     LastDownloadAttempted = str(startDownloadTime)
     LastDownloadCompleted = str(endDownloadTime)
     LocalAbsoluteFilePath = str(wp.file_path)
+    DownloadStatus = 'Attempted'
 
     cursor.execute(updateDownloadsStatement,
                 (LastDownloadAttempted,
@@ -132,6 +136,7 @@ for result in results:
                  SubmissionID
                  )
     )
+    connection.commit()
 
 
 
