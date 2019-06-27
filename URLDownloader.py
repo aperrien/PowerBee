@@ -2,6 +2,7 @@ import sqlite3
 import datetime
 
 from pywebcopy import WebPage, config
+import pywebcopy
 import yaml
 import os.path
 
@@ -28,17 +29,53 @@ SELECT d.SubredditID,
   FROM Downloads d
   INNER JOIN submissions s ON (d.SubredditID = s.SubredditID) and (d.SubmissionID = s.SubmissionID)
   WHERE s.URL is not NULL 
-  AND s.URL not LIKE '%reddit%'
+  AND 
+  s.URL not LIKE '%reddit%'
+  AND 
+  s.URL not LIKE '%imgur%'
+
   ORDER BY RANDOM()
 LIMIT 20;
 """
 
 cursor.execute(statement)
 
+results = cursor.fetchall()
+
 # Folder paths for pywebcopy must be absolute paths.
 # RE: https://github.com/rajatomar788/pywebcopy/issues/13
 # Incorporated rajatomar788's fix, 15 Jun 2019, thanks!
 #
+
+fetchDownloadStatusStatment = """
+SELECT 
+       LastDownloadAttempted,
+       LastDownloadCompleted,
+       DownloadStatus,
+       DownloadAttemptCount,
+       LinkControl,
+       ServerReply,
+       LocalAbsoluteFilePath
+    FROM Downloads
+    WHERE SubredditID = ? AND 
+       SubmissionID = ? 
+"""
+
+
+updateDownloadsStatement = """
+UPDATE Downloads
+   SET 
+       LastDownloadAttempted = ?,
+       LastDownloadCompleted = ?,
+       DownloadStatus = ?,
+       DownloadAttemptCount = ?,
+       LinkControl = ?,
+       ServerReply = ?,
+       LocalAbsoluteFilePath = ?
+    WHERE SubredditID = ? AND 
+       SubmissionID = ? 
+"""
+
 
 prefix = os.path.normpath(downloaderConfig['download_root'])
 
@@ -50,21 +87,52 @@ count = 0
 
 
 
-while count <= 20:
-    count += 1
-    results = cursor.fetchone()
-    if results == None:
+for result in results:
+    if result == None:
+        print('No more records from DB!')
         break
-    print(results)
-    (SubredditID, SubmissionID, SubmissionTitle, URL) = results
-    save_folder = os.path.join(prefix, SubredditID, SubmissionID)
+    print(result)
+    (SubredditID, SubmissionID, SubmissionTitle, URL) = result
 
+    save_folder = os.path.join(prefix, SubredditID, SubmissionID)
+    startDownloadTime = datetime.datetime.utcnow()
     config.setup_config(URL, save_folder, 'pb')
     wp = WebPage()
-    wp.get(URL)
-    wp.save_complete()
+    try:
+        wp.get(URL)
+        wp.save_complete()
+    except pywebcopy.exceptions.AccessError:
+        DownloadStatus = 'Bad'
+
+    endDownloadTime = datetime.datetime.utcnow()
     print('HTML folder:' + str(wp.file_path))
-    print('Asset folder:' + str(wp.project_path))
+
+    (LastDownloadAttempted,
+     LastDownloadCompleted,
+     DownloadStatus,
+     DownloadAttemptCount,
+     LinkControl,
+     ServerReply,
+     LocalAbsoluteFilePath
+     ) = cursor.execute(fetchDownloadStatusStatment, (SubredditID, SubmissionID))
+
+    LastDownloadAttempted = str(startDownloadTime)
+    LastDownloadCompleted = str(endDownloadTime)
+    LocalAbsoluteFilePath = str(wp.file_path)
+
+    cursor.execute(updateDownloadsStatement,
+                (LastDownloadAttempted,
+                 LastDownloadCompleted,
+                 DownloadStatus,
+                 DownloadAttemptCount,
+                 LinkControl,
+                 ServerReply,
+                 LocalAbsoluteFilePath,
+                 SubredditID,
+                 SubmissionID
+                 )
+    )
+
 
 
 
