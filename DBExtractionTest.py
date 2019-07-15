@@ -7,6 +7,9 @@ import json
 # and output it as a nested JSON file, which will eventually be fed into a jquery/bootstrap frontend.
 # Still deciding on the middle web serving component.
 
+# In this case, it's submission ID t3_3z2yhb, otherwize known by this link:
+# /r/Futurology/comments/3z2yhb/i_was_born_deaf_and_i_had_just_received_my_first/
+#
 
 def nest(rows):
     root = {}
