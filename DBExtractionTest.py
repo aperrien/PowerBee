@@ -3,6 +3,11 @@ import datetime
 import yaml
 import json
 
+# This is a testbed for the eventual web interface. The goal is to take a nested submission from the database
+# and output it as a nested JSON file, which will eventually be fed into a jquery/bootstrap frontend.
+# Still deciding on the middle web serving component.
+
+
 def nest(rows):
     root = {}
     for row in rows:
