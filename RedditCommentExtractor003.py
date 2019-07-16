@@ -87,7 +87,7 @@ connection.commit()
 
 # Add select statement for subreddits table here
 
-cursor.execute("SELECT SubredditName FROM subreddits")
+cursor.execute("SELECT SubredditName FROM subreddits ORDER BY SubredditName")
 
 # Store the subreddits to a list
 
