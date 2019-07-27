@@ -53,5 +53,5 @@ results = cursor.fetchall()
 commentList = nest(results)
 
 
-
+# Output is nested JSON
 print(json.dumps(commentList, sort_keys=True, indent=4))
