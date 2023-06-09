@@ -1,0 +1,8 @@
+PowerBee
+.idea
+venv
+env
+__pycache__
+RedditArchive.db
+PowerBeeConfig.yaml
+RedditArchive.db-journal
