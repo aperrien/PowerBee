@@ -4,7 +4,7 @@ import datetime
 from pywebcopy import WebPage, config
 import pywebcopy
 import yaml
-import os.path
+import os
 
 # pywebcopy docs found at: https://github.com/rajatomar788/pywebcopy
 
@@ -78,8 +78,9 @@ UPDATE Downloads
        SubmissionID = ? 
 """
 
+current_directory = os.getcwd()
 
-prefix = os.path.normpath(downloaderConfig['download_root'])
+prefix = os.path.join(current_directory, os.path.normpath(downloaderConfig['download_folder']))
 
 count = 0
 

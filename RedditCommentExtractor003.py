@@ -74,7 +74,12 @@ cursor = connection.cursor()
 
 cursor.execute("SELECT RunNumber FROM ApplicationStatus ORDER BY RunNumber DESC LIMIT 1")
 
-runNumber = cursor.fetchone()[0]
+runNumber = cursor.fetchone()
+
+if runNumber == None:
+    runNumber = 0
+else:
+    runNumber = runNumber[0]
 
 print("Run Number ---> " + str(runNumber))
 

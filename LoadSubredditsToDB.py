@@ -2,12 +2,18 @@ import sqlite3
 import datetime
 import praw
 import yaml
+import os
 
-stream = open(r"H:\Python\PowerBeeConfig.yml",'r')
+current_directory = os.getcwd()
+config_path = os.path.join(current_directory, "PowerBeeConfig.yaml")
+
 try:
+    stream = open(config_path,'r')
     config = yaml.safe_load(stream)
     redditConfig = config['reddit_config']
 
+except FileNotFoundError as err:
+    print(f"Config file not found. Make sure that you've followed the setup steps properly.\n{err}")
 except yaml.YAMLError as exc:
     print(exc)
 reddit = praw.Reddit(**redditConfig)

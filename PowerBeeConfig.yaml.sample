@@ -9,5 +9,4 @@ reddit_config:
   password: 'Password'
 
 downloader_config:
-  download_root: 'H:\Python\PowerBee\Hive\Data'
-
+  download_folder: 'output/Hive/Data'
