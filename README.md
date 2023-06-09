@@ -4,7 +4,7 @@ PowerBee is a reddit downloader, allowing you to save submissions, comments, and
 
 
 ### Usage:
-1. After cloning the repository, install the dependencies by running `pip install -r requirements.txt`.
+1. After cloning the repository, create a venv using `python3 -m venv env` and then activate it using `source env\bin\activate`. Install the dependencies by running `pip install -r requirements.txt`.
 2. In order for the application to work, you will need to create an clientID and client secret (OAuth2 tokens) for reddit. You can do that by following the directions given here:
    - https://github.com/reddit-archive/reddit/wiki/OAuth2-Quick-Start-Example#first-steps
 3. After you have those, enter those values into your `PowerBeeConfig.yaml` file, replacing the placeholder values.
